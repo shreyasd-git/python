@@ -1,0 +1,159 @@
+#Two Pointers Pattern
+
+Used with what Data Structures? - 
+- To work with arrays or linked lists
+
+- has two pointers/variables > 
+	Pointers movement - 1. In Same Direction (Left to Right)
+						2. Towards each other (Start and End pointer)
+						3. At Different speed (slow pointer, fast pointer)
+						
+- Advantages
+	1. Reduces Time Complexity
+
+- Hints / Keywords / Pattern to know is Two pointers pattern
+	1. "Find a pair that..."
+	2. "Sorted array"
+	3. "Reverse in-place"
+	4. "Remove duplicates without extra space"
+	5. "Move zeroes to end"
+	6. "Palindrome check"
+	7. "Container with most water"
+	8. "Shortest/Longest subarray with some condition"
+	9. "Merge two sorted arrays"
+
+- Keywords in Problrm statement
+	1. Sorted
+	2. In-place
+	3. Without extra memeory / variables
+	4. Min / Max / Sum
+	5. Subarray / substring
+
+- Use cases -
+	1. Searhing Pairs (to search for a pair adding to a prticular target) -> Left To Right
+	2. Removing duplicates from an array
+	3. Reversing parts of array or string
+	4. Pallindrome -> start and end pointer
+	5. Merging sorted arrays
+	
+Leet Code - 
+1. 11 - Conatiner with most water
+2. 3Sum
+3. Two Sum 2 : Input array is Sorted
+
+--------------------------------------------------------------------------------------------------------
+
+Examples -
+1. Given a sorted array, find if there are two numbers that add up to a target sum.
+
+arr = [1,2,3,4,5,6]
+target = 6
+
+def pair_to_target(arr, target)
+	left = 0
+	right = len(arr) - 1
+	
+	while left < right:
+		curr_targ = arr[left] + arr[right]
+		if curr_targ == target:
+			return True
+		elif curr_targ > target:
+			right -= 1
+		else:
+			left += 1
+			
+	return False
+	
+Time Complexity - O(n)	
+	
+-------------------------------------------------------------------------------------------------------------
+2. Reverse a string
+
+Brute Force > for loop 
+Optimal (O(n)) > Two pointers [left(Start) and right(End)]
+
+def reverse_str(s):
+	s = list(s)
+	left = 0
+	right = len(s) - 1
+	
+	while left < right:
+		s[left], s[right] = s[right], s[left]
+		left += 1
+		right -= 1
+	return ''.join(s)
+	
+print(reverse_str('shreyas')) #sayerhs
+
+-------------------------------------------------------------------------------------------------------------
+3.Merge two sorted arryas
+
+Brute Force >
+Two pointers  Approach >
+Optimal Time Complexity
+(O(n) - In Place array operation) > Two pointers [forward, both pointers move at same intervals/speed]
+O(n+m) - creating New array
+
+arr1=[1,2,4,5]
+arr2=[7,9,10]
+
+def merge_arr(arr1, arr2):
+    i = 0 #pointer of arr1
+    j = 0 #pointer of arr2
+    merged = [] #initialise new array
+
+    # Compare array elements and append the smaller one
+    while i < len(arr1) and j < len(arr2):
+        if arr1[i] < arr2[j]:
+            merged.append(arr1[i])
+            i += 1
+        else:
+            merged.append(arr2[j])
+            j += 1 
+
+    # Append the remaining elements
+    while i < len(arr1):
+        merged.append(arr1[i])
+        i += 1
+    
+    while j < len(arr2):
+        merged.append(arr2[j])
+        j += 1
+
+    return merged
+
+print(merge_arr(arr1, arr2))
+
+
+--------------------------------------------------------------------------------
+4. Remove Duplicates from Sorted Array
+Given a sorted array, remove the duplicates in-place such that each element appears only once and return the new length.
+Do not allocate extra space.
+
+Use two pointers:
+
+slow (tracks position of unique elements)
+fast (scans through the array)
+When nums[fast] != nums[slow], increment slow and copy value from fast to slow.
+
+
+Input: nums = [0,0,1,1,1,2,2,3,3,4]
+
+def remove_duplicates(nums):
+    if not nums:
+        return 0
+
+    slow = 0
+    for fast in range(1, len(nums)):
+        if nums[fast] != nums[slow]:
+            slow += 1
+            nums[slow] = nums[fast]
+    return slow + 1
+
+
+Output: 5, nums = [0,1,2,3,4,...]
+
+
+
+		
+		
